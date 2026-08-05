@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MAB Systems — Helping Local Businesses Grow</title>
+<meta name="description" content="Websites, reviews, and systems that bring in customers — so you can focus on running your business." />
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ink: '#051F17',
+          deep: '#036B4C',
+          primary: '#10B981',
+          mid: '#34D399',
+          light: '#A7F3D0',
+          pale: '#E7FAF3',
+          paper: '#FCFCFC',
+        },
+        fontFamily: {
+          sans: ['"Onest"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        },
+      },
+    },
+  };
+</script>
+<style>
+  @font-face {
+    font-family: 'Onest';
+    src: url('brand_assets/Typeface/Onest/Onest-VariableFont_wght.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  :root {
+    --ink: #051F17;
+    --deep: #036B4C;
+    --primary: #10B981;
+    --mid: #34D399;
+    --light: #A7F3D0;
+    --pale: #E7FAF3;
+    --paper: #FCFCFC;
+  }
+
+  html { scroll-behavior: smooth; }
+  section[id] { scroll-margin-top: 72px; }
+  body {
+    font-family: 'Onest', ui-sans-serif, system-ui, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    font-feature-settings: 'ss01' 1;
+  }
+
+  ::selection { background: var(--primary); color: #fff; }
+
+  /* Signature: growth-word treatment, threaded across headlines */
+  .grow-word {
+    font-style: italic;
+    font-weight: 500;
+    color: var(--light);
+  }
+  .grow-word--dark {
+    font-style: italic;
+    font-weight: 500;
+    color: var(--primary);
+  }
+
+  /* Bracket motif, echoes the logo mark */
+  .bracket-icon { display: inline-block; vertical-align: middle; }
+
+  /* Layered, color-tinted shadows */
+  .shadow-emerald-sm { box-shadow: 0 1px 2px rgba(5,31,23,.06), 0 3px 10px -2px rgba(16,185,129,.16); }
+  .shadow-emerald-md { box-shadow: 0 2px 6px rgba(5,31,23,.06), 0 16px 36px -12px rgba(16,185,129,.30); }
+  .shadow-emerald-lg { box-shadow: 0 4px 16px rgba(5,31,23,.10), 0 32px 64px -20px rgba(16,185,129,.40); }
+
+  /* Dark sections — solid ink base with one soft, localized glow (not a full-bleed gradient) and a faint
+     grid that only appears inside the glow, masked to fade at its edges. Ink bookends the page top and bottom. */
+  .hero-bg {
+    background: var(--ink);
+  }
+  .hero-bg .glow {
+    position: absolute; inset: 0;
+    background: radial-gradient(46% 55% at 68% 34%, rgba(16,185,129,.20) 0%, rgba(16,185,129,0) 72%);
+    pointer-events: none;
+  }
+  .hero-bg .grid-texture {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(167,243,208,.16) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(167,243,208,.16) 1px, transparent 1px);
+    background-size: 48px 48px;
+    -webkit-mask-image: radial-gradient(42% 50% at 68% 34%, black 0%, transparent 75%);
+    mask-image: radial-gradient(42% 50% at 68% 34%, black 0%, transparent 75%);
+    pointer-events: none;
+  }
+  .contact-bg {
+    background: var(--ink);
+  }
+  .contact-bg .glow {
+    position: absolute; inset: 0;
+    background: radial-gradient(42% 55% at 30% 30%, rgba(16,185,129,.16) 0%, rgba(16,185,129,0) 72%);
+    pointer-events: none;
+  }
+  .hero-noise {
+    position: absolute; inset: 0;
+    opacity: .05;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-size: 140px 140px;
+    pointer-events: none;
+  }
+
+  /* Scroll reveal */
+  .reveal { opacity: 0; transform: translateY(10px); transition: opacity .45s ease-out, transform .45s ease-out; }
+  .reveal.in-view { opacity: 1; transform: translateY(0); }
+  .reveal-stagger.in-view > * { opacity: 1; transform: translateY(0); }
+  .reveal-stagger > * { opacity: 0; transform: translateY(10px); transition: opacity .4s ease-out, transform .4s ease-out; }
+  .reveal-stagger.in-view > *:nth-child(1) { transition-delay: .02s; }
+  .reveal-stagger.in-view > *:nth-child(2) { transition-delay: .09s; }
+  .reveal-stagger.in-view > *:nth-child(3) { transition-delay: .16s; }
+  .reveal-stagger.in-view > *:nth-child(4) { transition-delay: .23s; }
+  .reveal-stagger.in-view > *:nth-child(5) { transition-delay: .30s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal, .reveal-stagger > * { opacity: 1 !important; transform: none !important; transition: none !important; }
+  }
+
+  .btn-primary {
+    background: var(--primary);
+    box-shadow: 0 1px 2px rgba(5,31,23,.12);
+    transition: background-color .2s ease;
+  }
+  .btn-primary:hover { background: var(--deep); }
+
+  .btn-ghost {
+    border: 1px solid rgba(255,255,255,.18);
+    transition: background-color .2s ease, border-color .2s ease;
+  }
+  .btn-ghost:hover { background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.3); }
+
+  .card-service {
+    transition: border-color .25s ease;
+  }
+  .card-service:hover { border-color: rgba(16,185,129,.35); }
+
+  input:focus-visible, textarea:focus-visible, button:focus-visible, a:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+  }
+
+  /* Nav — transparent over the hero, no visible bar; solidifies once scrolled past it */
+  header {
+    background: transparent;
+    border-bottom: 1px solid transparent;
+    transition: background-color .35s ease, border-color .35s ease, backdrop-filter .35s ease;
+  }
+  header.scrolled {
+    background: rgba(252,252,252,.82);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom-color: rgba(5,31,23,.06);
+  }
+  header .nav-link { color: rgba(255,255,255,.75); transition: color .3s ease; }
+  header .nav-link:hover { color: #fff; }
+  header.scrolled .nav-link { color: rgba(5,31,23,.65); }
+  header.scrolled .nav-link:hover { color: #051F17; }
+  header .nav-logo-text { color: var(--paper); transition: color .3s ease; }
+  header.scrolled .nav-logo-text { color: var(--ink); }
+  header .menu-icon { color: rgba(255,255,255,.85); transition: color .3s ease; }
+  header.scrolled .menu-icon { color: var(--ink); }
+
+  /* Mobile menu — smooth open/close instead of an instant toggle */
+  #mobileMenu {
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height .35s cubic-bezier(.16,1,.3,1), opacity .25s ease;
+  }
+  #mobileMenu.open { max-height: 22rem; opacity: 1; }
+
+</style>
+</head>
+<body class="antialiased">
+
+<!-- ===== NAV ===== -->
+<header class="fixed top-0 inset-x-0 z-50">
+  <div class="w-full px-6 lg:px-10 h-[72px] flex items-center justify-between">
+    <a href="#top" class="flex items-center gap-2.5 shrink-0" aria-label="MAB Systems home">
+      <img src="brand_assets/Logo/MAB%20Systems%20Logo%20No%20Background.png" alt="MAB Systems" class="h-7 w-auto" />
+      <span class="nav-logo-text font-medium tracking-tight text-lg">MAB Systems</span>
+    </a>
+
+    <nav class="hidden md:flex items-center gap-9">
+      <a href="#about" class="nav-link text-sm font-medium">About</a>
+      <a href="#services" class="nav-link text-sm font-medium">Services</a>
+      <a href="#contact" class="nav-link text-sm font-medium">Contact</a>
+    </nav>
+
+    <a href="#contact" class="hidden md:inline-flex items-center btn-primary text-white text-sm font-medium px-5 py-2.5 rounded-lg">
+      Work With Us
+    </a>
+
+    <button id="menuBtn" class="menu-icon md:hidden p-2 -mr-2" aria-label="Open menu" aria-expanded="false">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </div>
+
+  <div id="mobileMenu" class="md:hidden border-t border-white/[0.06] bg-ink/95 px-6 py-5 flex flex-col gap-4">
+    <a href="#about" class="text-white/80 text-sm font-medium">About</a>
+    <a href="#services" class="text-white/80 text-sm font-medium">Services</a>
+    <a href="#contact" class="text-white/80 text-sm font-medium">Contact</a>
+    <a href="#contact" class="btn-primary text-white text-sm font-medium text-center px-5 py-3 rounded-lg">Work With Us</a>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section id="top" class="relative hero-bg overflow-hidden pt-36 pb-16 md:pt-44 md:pb-24">
+  <div class="hero-noise"></div>
+  <div class="glow"></div>
+  <div class="grid-texture"></div>
+
+  <div class="relative max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="grid lg:grid-cols-2 gap-16 lg:gap-10 items-center">
+
+      <div>
+        <div class="reveal hero-intro inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-white/[0.04] pl-3 pr-4 py-1.5 mb-8">
+          <span class="w-1.5 h-1.5 rounded-full bg-primary shrink-0"></span>
+          <span class="text-[13px] text-white/55">Serving London, ON and the surrounding area</span>
+        </div>
+
+        <h1 class="reveal hero-intro text-[2.5rem] leading-[1.12] sm:text-5xl md:text-6xl md:leading-[1.08] font-medium tracking-[-0.02em] text-paper" style="transition-delay:.1s">
+          Helping local businesses <span class="grow-word">grow</span>
+        </h1>
+
+        <p class="reveal hero-intro mt-6 text-lg text-white/60 leading-[1.6] max-w-lg" style="transition-delay:.2s">
+          Websites, reviews, and systems that bring in customers — so you can focus on running your business.
+        </p>
+
+        <div class="reveal hero-intro mt-9 flex flex-wrap items-center gap-4" style="transition-delay:.3s">
+          <a href="#contact" class="btn-primary inline-flex items-center gap-2 text-white font-medium text-base px-8 py-4 rounded-lg">
+            Work With Us
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#services" class="btn-ghost inline-flex items-center text-white font-medium text-base px-8 py-4 rounded-lg">
+            View Services
+          </a>
+        </div>
+
+        <div class="reveal-stagger mt-11 flex flex-col sm:flex-row sm:flex-wrap gap-y-5 gap-x-9" style="transition-delay:.4s">
+          <div class="flex items-center gap-3">
+            <span class="w-9 h-9 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8M12 18v3"/></svg>
+            </span>
+            <p class="leading-tight">
+              <span class="stat-num block text-2xl font-semibold text-paper tracking-[-0.01em]" data-target="75">0%</span>
+              <span class="text-[13px] text-white/45">judge credibility by website design</span>
+            </p>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="w-9 h-9 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3L21 9l-4.7 4.3L17.5 20 12 16.7 6.5 20l1.2-6.7L3 9l6.1-.7L12 2z"/></svg>
+            </span>
+            <p class="leading-tight">
+              <span class="stat-num block text-2xl font-semibold text-paper tracking-[-0.01em]" data-target="88">0%</span>
+              <span class="text-[13px] text-white/45">read reviews before choosing a business</span>
+            </p>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="w-9 h-9 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            </span>
+            <p class="leading-tight">
+              <span class="stat-num block text-2xl font-semibold text-paper tracking-[-0.01em]" data-target="53">0%</span>
+              <span class="text-[13px] text-white/45">use AI to streamline quotes</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal" style="transition-delay:.25s">
+        <div class="relative max-w-md mx-auto lg:max-w-none">
+          <div class="absolute -top-4 -right-4 md:-top-5 md:-right-5 z-10 flex items-center gap-2.5 bg-white rounded-lg shadow-emerald-lg border border-ink/[0.06] px-3.5 py-2.5">
+            <span class="w-7 h-7 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+            </span>
+            <div class="leading-tight">
+              <p class="text-xs font-medium text-ink">New lead captured</p>
+              <p class="text-[10px] text-ink/40">Just now</p>
+            </div>
+          </div>
+
+          <div class="relative rounded-xl border border-ink/[0.06] bg-white shadow-emerald-lg p-2">
+            <div class="rounded-xl bg-pale/60 p-5 md:p-6">
+              <div class="flex items-center gap-1.5 mb-5">
+                <span class="w-2.5 h-2.5 rounded-full bg-ink/15"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-ink/15"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-ink/15"></span>
+                <span class="ml-3 text-[11px] font-medium text-ink/35 tracking-wide">yourbusiness.com</span>
+              </div>
+
+              <div class="space-y-3">
+                <div class="flex items-center justify-between bg-white rounded-lg border border-ink/[0.06] px-4 py-3 shadow-emerald-sm">
+                  <div class="flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-full bg-mid/10 flex items-center justify-center text-mid">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3L21 9l-4.7 4.3L17.5 20 12 16.7 6.5 20l1.2-6.7L3 9l6.1-.7L12 2z"/></svg>
+                    </span>
+                    <span class="text-sm font-medium text-ink">New 5-star review</span>
+                  </div>
+                  <span class="text-[11px] font-medium text-ink/35">2m ago</span>
+                </div>
+
+                <div class="flex items-center justify-between bg-white rounded-lg border border-ink/[0.06] px-4 py-3 shadow-emerald-sm">
+                  <div class="flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+                    </span>
+                    <div class="leading-tight">
+                      <p class="text-sm font-medium text-ink">Jane D. — new inquiry</p>
+                      <p class="text-[11px] text-ink/40">Assigned · follow-up set</p>
+                    </div>
+                  </div>
+                  <span class="text-[10px] font-medium text-primary bg-primary/10 rounded-full px-2.5 py-1">CRM</span>
+                </div>
+
+                <div class="flex items-center justify-between bg-white rounded-lg border border-ink/[0.06] px-4 py-3 shadow-emerald-sm">
+                  <div class="flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-full bg-deep/10 flex items-center justify-center text-deep">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12h6M9 16h6M9 8h6M6 4h9l3 3v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/></svg>
+                    </span>
+                    <span class="text-sm font-medium text-ink">Quote sent — $1,240</span>
+                  </div>
+                  <span class="text-[11px] font-medium text-ink/35">Just now</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="absolute -z-10 -bottom-6 -left-6 w-40 h-40 bg-primary/20 rounded-full blur-3xl"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section id="about" class="bg-paper py-24 md:py-32">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 grid md:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] gap-10 md:gap-16">
+
+    <div class="reveal">
+      <div class="inline-flex items-center gap-2 mb-5">
+        <svg class="bracket-icon" width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M9 5L3 12L9 19" stroke="#10B981" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="text-[11px] font-medium tracking-[0.18em] text-primary uppercase">Who We Are</span>
+        <svg class="bracket-icon" width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M15 5L21 12L15 19" stroke="#10B981" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <h2 class="text-3xl md:text-[2.6rem] leading-[1.12] font-medium tracking-[-0.02em] text-ink">
+        The systems behind your <span class="grow-word--dark">growth</span>
+      </h2>
+    </div>
+
+    <div class="reveal" style="transition-delay:.1s">
+      <p class="text-lg text-ink/60 leading-[1.75]">
+        MAB Systems helps local businesses grow by building the tools that bring in more customers and keep them coming back — from your website to how you manage reviews and leads. We handle the systems side so you can focus on the work.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== SERVICES ===== -->
+<section id="services" class="relative bg-pale/50 py-24 md:py-32">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="reveal text-center max-w-2xl mx-auto mb-16">
+      <div class="inline-flex items-center gap-2 mb-5">
+        <svg class="bracket-icon" width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M9 5L3 12L9 19" stroke="#10B981" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="text-[11px] font-medium tracking-[0.18em] text-primary uppercase">What We Do</span>
+        <svg class="bracket-icon" width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M15 5L21 12L15 19" stroke="#10B981" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <h2 class="text-3xl md:text-[2.6rem] leading-[1.12] font-medium tracking-[-0.02em] text-ink">
+        Services
+      </h2>
+    </div>
+
+    <div class="reveal-stagger grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <div class="card-service bg-white rounded-xl border border-ink/[0.06] shadow-emerald-sm p-8">
+        <span class="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-6">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 15l-2-2 2-2M15 11l2 2-2 2"/></svg>
+        </span>
+        <h3 class="text-lg font-medium text-ink mb-2.5">Web Design</h3>
+        <p class="text-[15px] text-ink/60 leading-[1.7]">A site built to bring in customers, not just look good.</p>
+      </div>
+
+      <div class="card-service bg-white rounded-xl border border-ink/[0.06] shadow-emerald-sm p-8">
+        <span class="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-6">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 1 1-3.5-6.6"/><path d="M21 4v5h-5"/><path d="M8 12h.01M12 12h.01M16 12h.01" stroke-width="2.4"/></svg>
+        </span>
+        <h3 class="text-lg font-medium text-ink mb-2.5">Chat Bot</h3>
+        <p class="text-[15px] text-ink/60 leading-[1.7]">Answers questions and captures leads on your site or messages, any time of day.</p>
+      </div>
+
+      <div class="card-service bg-white rounded-xl border border-ink/[0.06] shadow-emerald-sm p-8">
+        <span class="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-6">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3L21 9l-4.7 4.3L17.5 20 12 16.7 6.5 20l1.2-6.7L3 9l6.1-.7L12 2z"/></svg>
+        </span>
+        <h3 class="text-lg font-medium text-ink mb-2.5">Google Reviews</h3>
+        <p class="text-[15px] text-ink/60 leading-[1.7]">Automated requests that turn happy customers into 5-star reviews that rank your business higher on Google.</p>
+      </div>
+
+    </div>
+
+    <div class="reveal-stagger grid sm:grid-cols-2 gap-6 mt-6 lg:max-w-[calc(66.6667%-0.5rem)] lg:mx-auto">
+
+      <div class="card-service bg-white rounded-xl border border-ink/[0.06] shadow-emerald-sm p-8">
+        <span class="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-6">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17.5" cy="8.5" r="2.4"/><path d="M15.8 14.2c2.6.3 4.7 2.6 4.7 5.3"/></svg>
+        </span>
+        <h3 class="text-lg font-medium text-ink mb-2.5">CRM</h3>
+        <p class="text-[15px] text-ink/60 leading-[1.7]">Never lose track of a lead again — every inquiry, follow-up, and customer captured in one place, with reminders so nothing falls through the cracks.</p>
+      </div>
+
+      <div class="card-service bg-white rounded-xl border border-ink/[0.06] shadow-emerald-sm p-8">
+        <span class="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-6">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9l3 3v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M9 12h6M9 16h4M9 8h3"/></svg>
+        </span>
+        <h3 class="text-lg font-medium text-ink mb-2.5">Quotations</h3>
+        <p class="text-[15px] text-ink/60 leading-[1.7]">Give customers instant, accurate estimates the moment they ask — built from your own pricing rules, so you're always in control of what goes out.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section id="contact" class="relative contact-bg overflow-hidden py-24 md:py-32">
+  <div class="hero-noise"></div>
+  <div class="glow"></div>
+  <div class="relative max-w-3xl mx-auto px-6">
+    <div class="reveal text-center mb-12">
+      <div class="inline-flex items-center gap-2 mb-5">
+        <svg class="bracket-icon" width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M9 5L3 12L9 19" stroke="#A7F3D0" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="text-[11px] font-medium tracking-[0.18em] text-light uppercase">Get In Touch</span>
+        <svg class="bracket-icon" width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M15 5L21 12L15 19" stroke="#A7F3D0" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <h2 class="text-3xl md:text-[2.6rem] leading-[1.12] font-medium tracking-[-0.02em] text-paper mb-4">
+        Ready to <span class="grow-word">grow</span>?
+      </h2>
+      <p class="text-white/60 text-lg">Reach out directly — we'd love to hear about your business.</p>
+    </div>
+
+    <div class="reveal bg-white rounded-xl shadow-emerald-lg divide-y divide-ink/[0.06] overflow-hidden" style="transition-delay:.08s">
+      <a href="tel:+12262248937" class="group flex items-center justify-between gap-4 px-6 md:px-9 py-7 hover:bg-pale/40 transition-colors">
+        <div class="flex items-center gap-4">
+          <span class="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.9 2.2z"/></svg>
+          </span>
+          <div class="text-left">
+            <p class="text-xs font-medium text-ink/45 uppercase tracking-[0.1em] mb-0.5">Call us</p>
+            <p class="text-lg md:text-xl font-medium text-ink">(226) 224-8937</p>
+          </div>
+        </div>
+        <svg class="text-ink/25 group-hover:text-primary group-hover:translate-x-0.5 transition-all shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+      <a href="mailto:systemsmab@gmail.com" class="group flex items-center justify-between gap-4 px-6 md:px-9 py-7 hover:bg-pale/40 transition-colors">
+        <div class="flex items-center gap-4 min-w-0">
+          <span class="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>
+          </span>
+          <div class="text-left min-w-0">
+            <p class="text-xs font-medium text-ink/45 uppercase tracking-[0.1em] mb-0.5">Email us</p>
+            <p class="text-base sm:text-lg md:text-xl font-medium text-ink break-all sm:break-normal">systemsmab@gmail.com</p>
+          </div>
+        </div>
+        <svg class="text-ink/25 group-hover:text-primary group-hover:translate-x-0.5 transition-all shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="bg-[#030B08] border-t border-white/[0.06] py-14">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 flex flex-col md:flex-row md:items-center md:justify-between gap-10">
+    <div class="flex items-center gap-2.5">
+      <img src="brand_assets/Logo/MAB%20Systems%20Logo%20No%20Background.png" alt="MAB Systems" class="h-6 w-auto" />
+      <span class="text-paper font-medium tracking-tight">MAB Systems</span>
+    </div>
+
+    <div class="flex flex-col sm:flex-row gap-6 sm:gap-12 text-sm">
+      <div class="flex items-center gap-2.5 text-white/55">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Based in London, ON
+      </div>
+      <a href="mailto:systemsmab@gmail.com" class="flex items-center gap-2.5 text-white/55 hover:text-white transition-colors">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>
+        systemsmab@gmail.com
+      </a>
+      <a href="tel:+12262248937" class="flex items-center gap-2.5 text-white/55 hover:text-white transition-colors">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.9 2.2z"/></svg>
+        (226) 224-8937
+      </a>
+    </div>
+  </div>
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 mt-10 pt-8 border-t border-white/[0.06]">
+    <p class="text-xs text-white/35">© 2026 MAB Systems. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  // Mobile menu
+  const menuBtn = document.getElementById('menuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  menuBtn.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded', String(isOpen));
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    mobileMenu.classList.remove('open');
+    menuBtn.setAttribute('aria-expanded', 'false');
+  }));
+
+  // Nav — blends into the hero, solidifies once scrolled past it
+  const header = document.querySelector('header');
+  const onHeaderScroll = () => header.classList.toggle('scrolled', window.scrollY > 48);
+  onHeaderScroll();
+  window.addEventListener('scroll', onHeaderScroll, { passive: true });
+
+  // Hero entrance — plays once on load rather than sitting static
+  requestAnimationFrame(() => {
+    document.querySelectorAll('.hero-intro').forEach(el => el.classList.add('in-view'));
+  });
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal:not(.hero-intro), .reveal-stagger');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+  revealEls.forEach(el => io.observe(el));
+
+  // Stat counters — animate up once when scrolled into view
+  const statEls = document.querySelectorAll('.stat-num');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const statsIO = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      const target = parseInt(el.dataset.target, 10);
+      statsIO.unobserve(el);
+      if (reduceMotion) { el.textContent = target + '%'; return; }
+      const duration = 1100;
+      const start = performance.now();
+      function tick(now) {
+        const t = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - t, 3);
+        el.textContent = Math.round(eased * target) + '%';
+        if (t < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    });
+  }, { threshold: 0.6 });
+  statEls.forEach(el => statsIO.observe(el));
+</script>
+
+</body>
+</html>
